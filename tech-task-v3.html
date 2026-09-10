@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Product brief · Connect your accounts</title>
+<style>
+  :root {
+    --ground: #f6f7f5; --surface: #ffffff; --surface-2: #fbfcfb; --ink: #1b211e;
+    --muted: #5e6862; --faint: #8a938c; --hair: #e3e6e1; --hair-strong: #d3d8d2;
+    --accent: #1e6b54; --accent-ink: #14503f; --accent-soft: #e8f0ec;
+    --ok: #1e6b54; --ok-soft: #e6f0ea; --warn: #9a6410; --warn-soft: #f6ecd8;
+    --bad: #a83c3a; --bad-soft: #f4e2e1;
+    --shadow: 0 1px 2px rgba(27,33,30,.05), 0 8px 24px rgba(27,33,30,.05);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #141815; --surface: #1c211d; --surface-2: #191e1a; --ink: #eaede8;
+      --muted: #9ea79f; --faint: #79837b; --hair: #2c332e; --hair-strong: #384038;
+      --accent: #56b593; --accent-ink: #7fcaad; --accent-soft: #1d2c26;
+      --ok: #56b593; --ok-soft: #1d2c26; --warn: #d5a44a; --warn-soft: #322a17;
+      --bad: #dd8582; --bad-soft: #33211f;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #f6f7f5; --surface: #ffffff; --surface-2: #fbfcfb; --ink: #1b211e;
+    --muted: #5e6862; --faint: #8a938c; --hair: #e3e6e1; --hair-strong: #d3d8d2;
+    --accent: #1e6b54; --accent-ink: #14503f; --accent-soft: #e8f0ec;
+    --ok: #1e6b54; --ok-soft: #e6f0ea; --warn: #9a6410; --warn-soft: #f6ecd8;
+    --bad: #a83c3a; --bad-soft: #f4e2e1;
+    --shadow: 0 1px 2px rgba(27,33,30,.05), 0 8px 24px rgba(27,33,30,.05);
+  }
+  :root[data-theme="dark"] {
+    --ground: #141815; --surface: #1c211d; --surface-2: #191e1a; --ink: #eaede8;
+    --muted: #9ea79f; --faint: #79837b; --hair: #2c332e; --hair-strong: #384038;
+    --accent: #56b593; --accent-ink: #7fcaad; --accent-soft: #1d2c26;
+    --ok: #56b593; --ok-soft: #1d2c26; --warn: #d5a44a; --warn-soft: #322a17;
+    --bad: #dd8582; --bad-soft: #33211f;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.62; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 812px; margin: 0 auto; padding: 0 28px 120px; }
+
+  header.masthead { border-bottom: 1px solid var(--hair); margin-bottom: 52px; padding: 64px 0 40px; }
+  .eyebrow { font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+  h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2.1rem, 5.5vw, 3rem); line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; margin: 0 0 16px; }
+  .lede { font-size: 1.16rem; color: var(--muted); margin: 0; max-width: 62ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 500; padding: 6px 13px; border-radius: 999px; background: var(--surface); border: 1px solid var(--hair-strong); color: var(--ink); }
+  .chip b { font-weight: 600; }
+  .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+  section { margin-top: 50px; }
+  .sec-label { font-size: 12.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 0 0 10px; }
+  h2 { font-family: var(--serif); font-weight: 600; font-size: 1.66rem; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 14px; text-wrap: balance; }
+  h3 { font-size: 1.02rem; font-weight: 650; margin: 22px 0 6px; letter-spacing: -.005em; }
+  p { margin: 0 0 14px; max-width: 68ch; }
+  strong { font-weight: 650; }
+  ul { margin: 0 0 14px; padding-left: 1.25em; max-width: 68ch; list-style: none; }
+  ul li { margin: 8px 0; position: relative; }
+  ul li::before { content: "—"; position: absolute; left: -1.25em; color: var(--faint); }
+  code { font-family: var(--mono); font-size: .86em; background: var(--accent-soft); color: var(--accent-ink); padding: 1.5px 6px; border-radius: 5px; }
+
+  .mock { background: var(--surface); border: 1px solid var(--hair); border-radius: 14px; box-shadow: var(--shadow); padding: 22px 22px 26px; margin: 22px 0 8px; }
+  .mock-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 4px; }
+  .mock-title { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; }
+  .mock-ready { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .mock-filter { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); border: 1px solid var(--hair-strong); border-radius: 8px; padding: 5px 11px; margin: 14px 0 4px; }
+  .rows { display: flex; flex-direction: column; margin-top: 12px; }
+  .row { display: grid; grid-template-columns: 1.1fr auto 1fr auto; align-items: center; gap: 14px; padding: 13px 4px; border-top: 1px solid var(--hair); }
+  .row:last-child { border-bottom: 1px solid var(--hair); }
+  .prov { font-weight: 600; }
+  .file { font-family: var(--mono); font-size: 12.5px; color: var(--faint); text-align: right; }
+  .file.none { visibility: hidden; }
+  .pill { justify-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .pill .d { width: 6px; height: 6px; border-radius: 50%; }
+  .pill.ok { background: var(--ok-soft); color: var(--ok); } .pill.ok .d { background: var(--ok); }
+  .pill.warn { background: var(--warn-soft); color: var(--warn); } .pill.warn .d { background: var(--warn); }
+  .pill.bad { background: var(--bad-soft); color: var(--bad); } .pill.bad .d { background: var(--bad); }
+  .rowactions { justify-self: end; display: inline-flex; align-items: center; gap: 8px; }
+  .btn { font-size: 12.5px; font-weight: 600; font-family: var(--sans); padding: 5px 13px; border-radius: 8px; border: 1px solid var(--hair-strong); background: var(--surface-2); color: var(--ink); }
+  .remove { border: none; background: transparent; color: var(--faint); font-size: 17px; line-height: 1; padding: 4px 6px; border-radius: 7px; font-family: var(--sans); }
+  .mock-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+  .btn-ghost { border: 1px dashed var(--hair-strong); background: transparent; color: var(--muted); }
+  .btn-primary { background: var(--accent); color: #06120d; border: 1px solid var(--accent); padding: 9px 20px; border-radius: 9px; font-weight: 600; font-size: 13.5px; opacity: .45; }
+  .cap { font-size: 13px; color: var(--faint); margin-top: 10px; font-style: italic; }
+
+  .twolists { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: 12px; margin: 6px 0; }
+  .box { background: var(--surface); border: 1px solid var(--hair); border-radius: 12px; padding: 15px 17px; }
+  .box .bl { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .box p { font-size: 14px; color: var(--muted); margin: 0; }
+  .arrow { display: flex; align-items: center; font-size: 26px; color: var(--faint); }
+  @media (max-width: 620px) {
+    .twolists { grid-template-columns: 1fr; }
+    .arrow { justify-content: center; transform: rotate(90deg); padding: 2px 0; }
+    .row { grid-template-columns: 1fr auto; }
+    .file { display: none; }
+  }
+
+  .callout { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin: 6px 0; }
+  .callout .sec-label { color: var(--accent-ink); }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .logistics { background: var(--surface); border: 1px solid var(--hair); border-radius: 14px; padding: 8px 22px 20px; box-shadow: var(--shadow); }
+
+  .internal { margin-top: 68px; border: 1.5px dashed var(--hair-strong); border-radius: 16px; padding: 8px 26px 30px; background: var(--surface-2); }
+  .internal .stamp { display: inline-block; transform: translateY(-14px); background: var(--bad-soft); color: var(--bad); border: 1px solid color-mix(in srgb, var(--bad) 30%, transparent); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 5px 12px; border-radius: 8px; }
+  .internal h2 { font-size: 1.38rem; margin-top: 4px; }
+  .rubric { list-style: none; padding: 0; margin: 4px 0 0; }
+  .rubric li { display: flex; gap: 14px; align-items: baseline; padding: 9px 0; border-top: 1px solid var(--hair); }
+  .rubric li::before { content: none; }
+  .rubric li:first-child { border-top: none; }
+  .rubric .w { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--accent-ink); min-width: 42px; }
+  .rubric .t { font-size: 14px; }
+  .rubric .t b { display: block; color: var(--ink); }
+  .rubric .t span { color: var(--muted); }
+
+  footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--hair); font-size: 13px; color: var(--faint); }
+
+  @media (max-width: 520px) { body { font-size: 16px; } .wrap { padding: 0 20px 90px; } header.masthead { padding: 44px 0 32px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Product brief · Take-home</p>
+    <h1>Connect your accounts</h1>
+    <p class="lede">A new client is joining. Before we can advise them, we need a recent statement from every provider they hold money with. This is the screen where they get that done.</p>
+    <div class="meta">
+      <span class="chip"><span class="dot"></span> <b>Full-stack</b></span>
+      <span class="chip">⏱ <b>~2 hours</b></span>
+      <span class="chip">🤖 AI <b>allowed</b></span>
+    </div>
+  </header>
+
+  <section>
+    <p class="sec-label">Background</p>
+    <h2>Why this matters</h2>
+    <p>New clients hold money across several providers — banks, pensions, investment platforms. We can't give advice until we have a recent statement from each one.</p>
+    <p>Onboarding stalls here more than anywhere else. The client has to remember who they're with, chase down statements, and know when they're finally done. This screen is where that happens, so it needs to make the whole thing feel obvious.</p>
+  </section>
+
+  <section>
+    <p class="sec-label">The experience</p>
+    <h2>What the client sees</h2>
+    <div class="mock" aria-hidden="true">
+      <div class="mock-head">
+        <span class="mock-title">Connect your accounts</span>
+        <span class="mock-ready">3 of 4 ready</span>
+      </div>
+      <span class="mock-filter">Filter: All statuses ▾</span>
+      <div class="rows">
+        <div class="row">
+          <span class="prov">Barclays</span>
+          <span class="pill ok"><span class="d"></span>Uploaded</span>
+          <span class="file">statement_jan.pdf</span>
+          <span class="rowactions"><span class="btn">Replace</span><button class="remove" title="Remove">×</button></span>
+        </div>
+        <div class="row">
+          <span class="prov">HSBC</span>
+          <span class="pill bad"><span class="d"></span>Missing</span>
+          <span class="file none">—</span>
+          <span class="rowactions"><span class="btn">Upload</span><button class="remove" title="Remove">×</button></span>
+        </div>
+        <div class="row">
+          <span class="prov">Vanguard</span>
+          <span class="pill warn"><span class="d"></span>Outdated</span>
+          <span class="file">old_statement.pdf</span>
+          <span class="rowactions"><span class="btn">Replace</span><button class="remove" title="Remove">×</button></span>
+        </div>
+        <div class="row">
+          <span class="prov">Fidelity</span>
+          <span class="pill ok"><span class="d"></span>Uploaded</span>
+          <span class="file">q4_2025.pdf</span>
+          <span class="rowactions"><span class="btn">Replace</span><button class="remove" title="Remove">×</button></span>
+        </div>
+      </div>
+      <div class="mock-foot">
+        <span class="btn btn-ghost">+ Add provider</span>
+        <span class="btn-primary">Submit</span>
+      </div>
+    </div>
+    <p class="cap">Illustrative design. The final layout, components and structure are yours to decide.</p>
+  </section>
+
+  <section>
+    <p class="sec-label">What the client can do</p>
+    <h2>The interactions</h2>
+    <ul>
+      <li><strong>See their providers</strong> and, for each, whether we already have a good statement.</li>
+      <li><strong>Add providers</strong> they hold — searching a list of known providers and picking several at once.</li>
+      <li><strong>Remove a provider</strong> they added by mistake or no longer hold.</li>
+      <li><strong>Upload a statement</strong> for a provider.</li>
+      <li><strong>Filter</strong> the list by status to see what still needs attention.</li>
+      <li><strong>Submit</strong> once everything is in order.</li>
+    </ul>
+    <p>Two lists are involved, and they behave differently:</p>
+    <div class="twolists">
+      <div class="box">
+        <div class="bl">Known providers</div>
+        <p>The full set of providers a client could hold — the list they search and pick from when adding.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="box">
+        <div class="bl">The client's accounts</div>
+        <p>The providers this client has actually added, each with its own statement status. This is the on-screen list.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label">The rules</p>
+    <h2>How it should behave</h2>
+    <h3>A provider is always in one of three states</h3>
+    <ul>
+      <li><strong>Missing</strong> — we have no statement.</li>
+      <li><strong>Uploaded</strong> — we have a recent statement.</li>
+      <li><strong>Outdated</strong> — we have a statement, but it is more than <strong>3 months old</strong>, so it no longer counts.</li>
+    </ul>
+    <h3>And these must always hold</h3>
+    <ul>
+      <li>A provider the client has already added should not appear again when they go to add more.</li>
+      <li>The client can submit <strong>only when every provider has a current statement</strong> — nothing Missing or Outdated.</li>
+      <li>An incomplete set must never be accepted, even if the client finds a way around the screen. The client should be told clearly what's still wrong.</li>
+      <li>At every step the client knows what's happening — what's loading, what failed, and what succeeded.</li>
+    </ul>
+    <div class="callout">
+      <p class="sec-label">The heart of it</p>
+      <p>“Am I ready to submit?” is the question the whole screen answers. Everything the client does — adding, removing, uploading — should move them visibly closer to, or further from, being able to submit.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label">Boundaries</p>
+    <h2>Out of scope</h2>
+    <ul>
+      <li>No real file handling — treat an upload as just a file name and a date.</li>
+      <li>No sign-in and no multiple clients — assume one client, with a few providers already added to start from.</li>
+      <li>No production concerns (deployment, scaling, real provider data).</li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="sec-label">Logistics</p>
+    <h2>How to approach it</h2>
+    <div class="logistics">
+      <ul>
+        <li><strong>It's a full-stack task.</strong> Build the screen and the service behind it — roughly half and half. How you shape the API, where logic lives, and how the two talk is entirely your design.</li>
+        <li><strong>Set the project up yourself — no starter repo.</strong> This is a brief, not a scaffold: you begin from scratch and stand the project up. Use <strong>React + TypeScript</strong> on the front end; the rest of the front-end tooling is your call. On the back end use <strong>Kotlin/Java (Spring Boot)</strong>. We expect you to be comfortable with basic project setup.</li>
+        <li><strong>Set up your own tests and seed data.</strong> Nothing is wired up for you — add a test runner where you need one, and prepare your own seed or mock data to work against. Include a few meaningful tests — at least one on each side — covering the behaviour you'd most want to protect. An e2e test (e.g. Playwright) exercising the submit flow is a plus, not required.</li>
+        <li><strong>~2 hours.</strong> Using AI is fine and encouraged; we care about the result and that you understand it.</li>
+        <li><strong>Add a short <code>NOTES.md</code></strong> — key decisions, trade-offs, and what you'd do with more time.</li>
+      </ul>
+      <p style="margin:4px 0 0;color:var(--muted);font-size:14.5px;">Afterwards we'll sit down and read through the code together.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

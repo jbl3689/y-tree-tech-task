@@ -1,0 +1,86 @@
+.accounts-card { padding: 40px; border: 1px solid var(--border); border-radius: 24px; background: #fff; box-shadow: 0 12px 40px #24332e06; }
+.accounts-header { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(30px, 3.3vw, 42px); font-weight: 500; line-height: 1.15; letter-spacing: -1px; }
+.intro { margin-top: 14px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.muted { color: var(--muted); font-size: 13px; line-height: 1.5; }
+.progress-summary { flex: 0 0 220px; text-align: right; }
+.progress-summary p { font-size: 20px; color: var(--muted); }
+.progress-summary strong { color: var(--green); font-weight: 600; }
+.progress-summary span { font-size: 11px; line-height: 1.5; color: var(--muted); }
+.progress-summary progress { display: block; width: 100%; height: 5px; margin: 12px 0 8px; border: 0; border-radius: 10px; overflow: hidden; background: #eaf0eb; }
+.progress-summary progress::-webkit-progress-bar { background: #eaf0eb; }
+.progress-summary progress::-webkit-progress-value { background: var(--green); border-radius: 10px; }
+.progress-summary progress::-moz-progress-bar { background: var(--green); border-radius: 10px; }
+.accounts-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 36px 0 24px; }
+.status-filter { display: flex; align-items: center; gap: 10px; padding: 0 14px; border: 1px solid var(--border); border-radius: 10px; }
+.status-filter label { color: var(--muted); font-size: 13px; }
+.status-filter select { padding: 12px 18px 12px 0; border: 0; color: #24332e; background: transparent; font-size: 13px; }
+.account-list { list-style: none; padding: 0; margin: 0; }
+.account-row { display: grid; grid-template-columns: minmax(160px, 1.1fr) 124px minmax(120px, 1fr) auto; align-items: center; gap: 24px; min-height: 108px; padding: 22px 0; border-top: 1px solid var(--border); }
+.account-provider { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.provider-monogram { display: grid; place-items: center; flex: 0 0 40px; height: 40px; border: 1px solid #e3e9e3; border-radius: 12px; background: #f5f7f4; color: #566b5f; font-family: Georgia, serif; font-size: 20px; }
+.account-provider h2 { font-size: 18px; font-weight: 600; overflow-wrap: anywhere; }
+.status-badge { display: inline-flex; align-items: center; justify-self: start; gap: 8px; border-radius: 100px; padding: 8px 12px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.status-badge--uploaded { color: #246b56; background: #e7f2ec; }
+.status-badge--missing { color: #a63d3d; background: #faeaea; }
+.status-badge--outdated { color: #946018; background: #faf0db; }
+.account-statement { display: flex; flex-direction: column; gap: 6px; min-width: 0; text-align: right; }
+.statement-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: ui-monospace, Consolas, monospace; font-size: 12px; color: #58685e; }
+.statement-date, .statement-empty { font-size: 11px; color: var(--muted); }
+.account-actions { display: flex; align-items: center; gap: 12px; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 11px 20px; border: 1px solid transparent; border-radius: 10px; font-size: 13px; font-weight: 600; }
+.button--secondary { color: #24332e; border-color: #cdd7cf; background: #fafbf9; }
+.button--secondary:not(:disabled):hover { background: #edf2ec; }
+.button--primary { color: #fff; background: var(--green); min-width: 110px; }
+.button--primary:not(:disabled):hover { background: #19533f; }
+.button--add { color: #435c4e; border: 1px dashed #a6b6aa; background: #fff; }
+.button--add span { font-size: 20px; font-weight: 400; line-height: 16px; }
+.button--add:not(:disabled):hover { background: #f5f7f4; }
+.icon-button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 8px; color: #6b7a70; background: transparent; font-size: 26px; }
+.remove-button:not(:disabled):hover { color: #a63d3d; background: #faeaea; }
+.account-footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 30px; border-top: 1px solid var(--border); }
+.submit-group { display: flex; align-items: center; gap: 20px; }
+.submit-group p { max-width: 230px; text-align: right; font-size: 12px; }
+.empty-state { padding: 60px 20px; text-align: center; border-top: 1px solid var(--border); }
+.empty-state h2 { font-size: 20px; margin-bottom: 10px; }
+.empty-state p { color: var(--muted); font-size: 14px; }
+.dialog { width: min(480px, calc(100% - 32px)); padding: 28px; color: #24332e; border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 20px 70px #24332e20; }
+.dialog::backdrop { background: #1e302b66; }
+.dialog h2 { font-family: Georgia, serif; font-size: 28px; font-weight: 500; }
+.dialog-description { margin: 12px 0 24px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.field-label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 600; }
+.dialog input:not([type="checkbox"]) { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #cdd7cf; border-radius: 8px; color: #24332e; background: #fff; }
+.form-field { margin-bottom: 20px; }
+.provider-options { max-height: 280px; overflow: auto; margin: 20px 0; padding: 0; border: 0; }
+.provider-option { display: flex; align-items: center; gap: 12px; padding: 14px 2px; border-bottom: 1px solid var(--border); font-size: 14px; }
+.provider-option input { width: 18px; height: 18px; accent-color: var(--green); }
+.dialog-footer { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.selection-count { margin-right: auto; color: var(--muted); font-size: 12px; }
+
+@media (max-width: 1050px) {
+  .accounts-card { padding: 32px; }
+  .account-row { grid-template-columns: minmax(140px, 1fr) 120px auto; gap: 16px; }
+  .account-statement { grid-column: 1; grid-row: 2; text-align: left; padding-left: 54px; }
+  .account-actions { grid-column: 3; grid-row: 1 / 3; }
+  .account-row .status-badge { grid-column: 2; grid-row: 1 / 3; }
+}
+
+@media (max-width: 720px) {
+  #root { padding: 24px 16px; }
+  .accounts-card { padding: 24px 20px; border-radius: 18px; }
+  .accounts-header { align-items: flex-start; flex-direction: column; gap: 24px; }
+  .progress-summary { flex: auto; width: 100%; text-align: left; }
+  .accounts-toolbar { margin-top: 28px; }
+  .account-row { grid-template-columns: minmax(0, 1fr) auto; gap: 14px; }
+  .account-provider { gap: 10px; }
+  .account-provider h2 { font-size: 16px; }
+  .provider-monogram { flex-basis: 32px; height: 32px; border-radius: 9px; font-size: 17px; }
+  .account-row .status-badge { grid-column: 2; grid-row: 1; }
+  .account-statement { grid-column: 1 / -1; grid-row: 2; padding-left: 42px; }
+  .account-actions { grid-column: 1 / -1; grid-row: 3; justify-content: flex-end; }
+  .account-footer, .submit-group { align-items: stretch; flex-direction: column; }
+  .account-footer { gap: 24px; padding-top: 24px; }
+  .submit-group { gap: 12px; }
+  .submit-group p { max-width: none; text-align: center; }
+}
