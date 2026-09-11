@@ -1,61 +1,113 @@
-import { useId } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { Statement } from "../types";
 
 interface StatementDialogProps {
   isOpen: boolean;
   providerName: string;
-  statement: Statement;
   isReplacing?: boolean;
-  onChange?: (statement: Statement) => void;
-  onSave?: (statement: Statement) => void;
-  onClose?: () => void;
+  onSave: (statement: Statement) => Promise<void>;
+  onClose: () => void;
 }
 
 export function StatementDialog({
-  isOpen, providerName, statement, isReplacing = false,
-  onChange, onSave, onClose,
+  isOpen,
+  providerName,
+  isReplacing = false,
+  onSave,
+  onClose,
 }: StatementDialogProps) {
+  const [file, setFile] = useState<File | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
   const titleId = useId();
   const fileNameId = useId();
-  const dateId = useId();
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  // TODO: wire modal focus handling and validate fields before saving.
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!isOpen || !dialog) return;
+
+    const previouslyFocused = document.activeElement;
+    dialog.showModal();
+
+    return () => {
+      dialog.close();
+      if (previouslyFocused instanceof HTMLElement) {
+        previouslyFocused.focus();
+      }
+    };
+  }, [isOpen]);
+
+  async function handleSave() {
+    if (!file || isSaving) return;
+
+    setIsSaving(true);
+    setSaveError(null);
+
+    const today = new Date();
+    const uploadedAt = [
+      today.getFullYear(),
+      String(today.getMonth() + 1).padStart(2, "0"),
+      String(today.getDate()).padStart(2, "0"),
+    ].join("-");
+
+    try {
+      await onSave({ fileName: file.name, uploadedAt });
+      onClose();
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : "Failed to save statement");
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
   return (
-    <dialog open={isOpen} className="dialog" aria-labelledby={titleId}>
+    <dialog
+      ref={dialogRef}
+      className="dialog"
+      aria-labelledby={titleId}
+      onCancel={(event) => {
+        event.preventDefault();
+        if (!isSaving) onClose();
+      }}
+    >
       <h2 id={titleId}>{isReplacing ? "Replace" : "Upload"} statement</h2>
-      <p className="dialog-description">Statement details for {providerName}.</p>
+      <p className="dialog-description">
+        Statement details for {providerName}.
+      </p>
       <div className="form-field">
-        <label className="field-label" htmlFor={fileNameId}>Statement filename</label>
+        <label className="field-label" htmlFor={fileNameId}>
+          Statement file
+        </label>
         <input
           id={fileNameId}
-          type="text"
-          placeholder="statement.pdf"
-          value={statement.fileName}
-          disabled={!onChange}
-          onChange={(event) => onChange?.({ ...statement, fileName: event.target.value })}
+          type="file"
+          disabled={isSaving}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            setFile(file ?? null);
+            setSaveError(null);
+          }}
         />
       </div>
-      <div className="form-field">
-        <label className="field-label" htmlFor={dateId}>Upload date</label>
-        <input
-          id={dateId}
-          type="date"
-          value={statement.uploadedAt}
-          disabled={!onChange}
-          onChange={(event) => onChange?.({ ...statement, uploadedAt: event.target.value })}
-        />
-      </div>
+      {saveError && <p role="alert">{saveError}</p>}
       <div className="dialog-footer">
-        <button className="button button--secondary" type="button" disabled={!onClose} onClick={onClose}>
+        <button
+          className="button button--secondary"
+          type="button"
+          disabled={isSaving}
+          onClick={onClose}
+        >
           Cancel
         </button>
         <button
           className="button button--primary"
           type="button"
-          disabled={!onSave}
-          onClick={() => onSave?.(statement)}
+          disabled={!file || isSaving}
+          onClick={handleSave}
         >
-          Save statement
+          {isSaving ? "Saving…" : "Save statement"}
         </button>
       </div>
     </dialog>

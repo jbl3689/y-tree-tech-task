@@ -29,6 +29,7 @@ h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(30px, 3.3v
 .statement-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: ui-monospace, Consolas, monospace; font-size: 12px; color: #58685e; }
 .statement-date, .statement-empty { font-size: 11px; color: var(--muted); }
 .account-actions { display: flex; align-items: center; gap: 12px; }
+.account-error { grid-column: 1 / -1; color: #a63d3d; font-size: 13px; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 11px 20px; border: 1px solid transparent; border-radius: 10px; font-size: 13px; font-weight: 600; }
 .button--secondary { color: #24332e; border-color: #cdd7cf; background: #fafbf9; }
 .button--secondary:not(:disabled):hover { background: #edf2ec; }
@@ -50,7 +51,7 @@ h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(30px, 3.3v
 .dialog h2 { font-family: Georgia, serif; font-size: 28px; font-weight: 500; }
 .dialog-description { margin: 12px 0 24px; color: var(--muted); font-size: 14px; line-height: 1.6; }
 .field-label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 600; }
-.dialog input:not([type="checkbox"]) { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #cdd7cf; border-radius: 8px; color: #24332e; background: #fff; }
+.dialog input:not([type="checkbox"]), .dialog select { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #cdd7cf; border-radius: 8px; color: #24332e; background: #fff; }
 .form-field { margin-bottom: 20px; }
 .provider-options { max-height: 280px; overflow: auto; margin: 20px 0; padding: 0; border: 0; }
 .provider-option { display: flex; align-items: center; gap: 12px; padding: 14px 2px; border-bottom: 1px solid var(--border); font-size: 14px; }

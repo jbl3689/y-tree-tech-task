@@ -1,14 +1,31 @@
+import { useState } from "react";
 import type { AccountView } from "../types";
 import { StatusBadge } from "./StatusBadge";
 
 interface AccountRowProps {
   account: AccountView;
   onUpload?: (account: AccountView) => void;
-  onRemove?: (accountId: number) => void;
+  onRemove?: (accountId: number) => Promise<void>;
 }
 
 export function AccountRow({ account, onUpload, onRemove }: AccountRowProps) {
+  const [isRemoving, setIsRemoving] = useState(false);
+  const [removeError, setRemoveError] = useState<string | null>(null);
   const action = account.statement ? "Replace" : "Upload";
+
+  async function handleRemove() {
+    if (!onRemove || isRemoving) return;
+
+    setIsRemoving(true);
+    setRemoveError(null);
+    try {
+      await onRemove(account.id);
+    } catch (error) {
+      setRemoveError(error instanceof Error ? error.message : "Failed to delete account");
+    } finally {
+      setIsRemoving(false);
+    }
+  }
 
   return (
     <li className="account-row">
@@ -26,7 +43,10 @@ export function AccountRow({ account, onUpload, onRemove }: AccountRowProps) {
               {account.statement.fileName}
             </span>
             <span className="statement-date">
-              Uploaded <time dateTime={account.statement.uploadedAt}>{account.statement.uploadedAt}</time>
+              Uploaded{" "}
+              <time dateTime={account.statement.uploadedAt}>
+                {account.statement.uploadedAt}
+              </time>
             </span>
           </>
         ) : (
@@ -37,7 +57,7 @@ export function AccountRow({ account, onUpload, onRemove }: AccountRowProps) {
         <button
           className="button button--secondary"
           type="button"
-          disabled={!onUpload}
+          disabled={!onUpload || isRemoving}
           onClick={() => onUpload?.(account)}
           aria-label={`${action} statement for ${account.providerName}`}
         >
@@ -46,14 +66,16 @@ export function AccountRow({ account, onUpload, onRemove }: AccountRowProps) {
         <button
           className="icon-button remove-button"
           type="button"
-          disabled={!onRemove}
-          onClick={() => onRemove?.(account.id)}
-          aria-label={`Remove ${account.providerName}`}
-          title={`Remove ${account.providerName}`}
+          disabled={!onRemove || isRemoving}
+          onClick={handleRemove}
+          aria-label={`${isRemoving ? "Removing" : "Remove"} ${account.providerName}`}
+          title={`${isRemoving ? "Removing" : "Remove"} ${account.providerName}`}
+          aria-busy={isRemoving}
         >
-          <span aria-hidden="true">×</span>
+          <span aria-hidden="true">{isRemoving ? "…" : "×"}</span>
         </button>
       </div>
+      {removeError && <p className="account-error" role="alert">{removeError}</p>}
     </li>
   );
 }

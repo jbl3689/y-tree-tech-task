@@ -25,5 +25,3 @@ cd server
 ```
 
 Uses the existing JUnit and Spring MockMvc dependencies. Tests cover account JSON (including statement details, ISO dates, and missing statements), the known-provider list including a provider not yet added, and application startup.
-
-Submission validation, backend status calculation, and adding providers are not implemented yet, so their planned tests remain outstanding. See [PLAN.md, section 8](PLAN.md#8-tests).

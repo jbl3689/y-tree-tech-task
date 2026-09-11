@@ -13,12 +13,19 @@ export function AccountActions({
 }: AccountActionsProps) {
   return (
     <footer className="account-footer">
-      <button className="button button--add" type="button" disabled={!onAddProvider} onClick={onAddProvider}>
+      <button
+        className="button button--add"
+        type="button"
+        disabled={!onAddProvider || isSubmitting}
+        onClick={onAddProvider}
+      >
         <span aria-hidden="true">+</span> Add provider
       </button>
       <div className="submit-group">
         <p className="muted">
-          {canSubmit ? "Your accounts are ready." : "Add a current statement for every account to continue."}
+          {canSubmit
+            ? "Your accounts are ready."
+            : "Add a current statement for every account to continue."}
         </p>
         <button
           className="button button--primary"

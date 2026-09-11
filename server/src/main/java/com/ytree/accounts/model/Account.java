@@ -24,5 +24,8 @@ public class Account {
     return statement;
   }
 
-  
+  public void setStatement(Statement statement) {
+    this.statement = statement;
+  }
+
 }

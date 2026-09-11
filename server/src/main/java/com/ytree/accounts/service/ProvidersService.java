@@ -3,11 +3,19 @@ package com.ytree.accounts.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.ytree.accounts.model.Provider;
 
 @Service
 public class ProvidersService {
+
+  private final AccountsService accountsService;
+
+  public ProvidersService(AccountsService accountsService) {
+    this.accountsService = accountsService;
+  }
 
   private final List<Provider> providers = List.of(
     new Provider(1L, "Barclays"),
@@ -23,7 +31,22 @@ public class ProvidersService {
   );
 
   public List<Provider> getProviders() {
-    return providers;
+    // Need to go through the accountsService to get the list of providers that have been added to accounts, and return only the ones remaining
+
+    List<Long> usedProviderIds = accountsService.getAllAccounts().stream()
+      .map(account -> account.getProviderId())
+      .toList();
+
+    return providers.stream()
+      .filter(provider -> !usedProviderIds.contains(provider.id()))
+      .toList();
+  }
+
+  public Provider getProvider(Long providerId) {
+    return providers.stream()
+      .filter(provider -> provider.id().equals(providerId))
+      .findFirst()
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found"));
   }
 
 }

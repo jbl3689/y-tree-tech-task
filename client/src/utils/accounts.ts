@@ -19,7 +19,7 @@ export function toAccountViews(
 
   return accounts.map((account) => ({
     ...account,
-    providerName: providerNames.get(account.providerId) ?? `Provider ${account.providerId}`,
+    providerName: account.providerName ?? providerNames.get(account.providerId) ?? `Provider ${account.providerId}`,
     // The API uses ISO date-only strings, which can be compared without timezone conversion.
     status: !account.statement
       ? "MISSING"

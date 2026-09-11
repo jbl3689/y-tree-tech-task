@@ -14,6 +14,7 @@ export interface Statement {
 export interface Account {
   id: number;
   providerId: number;
+  providerName?: string;
   statement: Statement | null;
 }
 
